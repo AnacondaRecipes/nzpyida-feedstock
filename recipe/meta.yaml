@@ -47,6 +47,7 @@ test:
   requires:
     - pip
     - pytest
+    - flaky
 
 about:
   home: https://github.com/ibm/nzpyida
