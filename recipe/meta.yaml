@@ -35,19 +35,16 @@ requirements:
     - jaydebeapi >=1.*
     - jpype1 >=0.6.3
 
+# Tests disabled need to connect to the database throgh the sqldriver
+#   > raise IdaDataBaseError(str(e))
+#   E nzpyida.exceptions.IdaDataBaseError: ibmdbpy::IdaDataBaseError: ('IM002', '[IM002] [unixODBC][Driver Manager]Data source name not found and no default driver specified (0) (SQLDriverConnect)')
 test:
-  source_files:
-    - nzpyida/tests
   imports:
     - nzpyida
   commands:
     - pip check
-    # pyargs not work tests excluded from the DIST
-    - pytest -v nzpyida/tests
   requires:
     - pip
-    - pytest
-    - flaky
 
 about:
   home: https://github.com/ibm/nzpyida
