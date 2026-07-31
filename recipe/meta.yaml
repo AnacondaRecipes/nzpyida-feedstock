@@ -1,0 +1,55 @@
+{% set name = "nzpyida" %}
+{% set version = "1.2" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 5910e5bbaade52eb743ccfebe5902ff805bb7c9ba22b709439a17b7579817487
+
+build:
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - pip
+    - python
+    - wheel
+    - setuptools
+  run:
+    - python
+    - pandas
+    - numpy
+    - six
+    - pypyodbc
+    - pyodbc
+    - lazy
+    - nzpy
+  run_constrained:
+    # jdbc
+    - jaydebeapi >=1.*
+    - jpype1 >=0.6.3
+
+test:
+  imports:
+    - nzpyida
+  commands:
+    - pip check
+    - pytest --pyargs nzpyida.tests
+  requires:
+    - pip
+    - pytest
+
+about:
+  home: https://github.com/ibm/nzpyida
+  summary: Supports Custom ML/Analytics Execution Inside Netezza
+  dev_url: https://github.com/IBM/nzpyida
+  license: BSD-3-Clause
+  license_file: LICENSE.txt
+
+extra:
+  recipe-maintainers:
+    - snegireff
