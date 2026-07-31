@@ -36,11 +36,14 @@ requirements:
     - jpype1 >=0.6.3
 
 test:
+  source_files:
+    - nzpyida/tests
   imports:
     - nzpyida
   commands:
     - pip check
-    - pytest --pyargs nzpyida.tests
+    # pyargs not work tests excluded from the DIST
+    - pytest -v nzpyida/tests
   requires:
     - pip
     - pytest
