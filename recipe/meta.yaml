@@ -1,0 +1,61 @@
+{% set name = "nzpyida" %}
+{% set version = "1.2" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 5910e5bbaade52eb743ccfebe5902ff805bb7c9ba22b709439a17b7579817487
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  # latest nzpy does not support py314 because of scramp dependency
+  skip: true  # [py>313]
+
+requirements:
+  host:
+    - pip
+    - python
+    - wheel
+    - setuptools
+  run:
+    - python
+    - pandas
+    - numpy
+    - six
+    - pypyodbc
+    - pyodbc
+    - lazy
+    - nzpy
+  run_constrained:
+    # jdbc
+    - jaydebeapi >=1.*
+    - jpype1 >=0.6.3
+
+# Tests disabled need to connect to the database throgh the sqldriver
+#   > raise IdaDataBaseError(str(e))
+#   E nzpyida.exceptions.IdaDataBaseError: ibmdbpy::IdaDataBaseError: ('IM002', '[IM002] [unixODBC][Driver Manager]Data source name not found and no default driver specified (0) (SQLDriverConnect)')
+test:
+  imports:
+    - nzpyida
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/ibm/nzpyida
+  summary: Supports Custom ML/Analytics Execution Inside Netezza
+  dev_url: https://github.com/IBM/nzpyida
+  license: BSD-3-Clause
+  license_file: LICENSE.txt
+  license_family: BSD
+  description: Supports Custom ML/Analytics Execution Inside Netezza
+  doc_url: https://nzpyida.readthedocs.io
+
+extra:
+  recipe-maintainers:
+    - snegireff
