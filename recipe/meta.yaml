@@ -49,6 +49,9 @@ about:
   dev_url: https://github.com/IBM/nzpyida
   license: BSD-3-Clause
   license_file: LICENSE.txt
+  license_family: BSD
+  description: Supports Custom ML/Analytics Execution Inside Netezza
+  doc_url: https://nzpyida.readthedocs.io
 
 extra:
   recipe-maintainers:
