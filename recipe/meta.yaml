@@ -10,8 +10,10 @@ source:
   sha256: 5910e5bbaade52eb743ccfebe5902ff805bb7c9ba22b709439a17b7579817487
 
 build:
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  # latest nzpy does not support py314 because of scramp dependency
+  skip: true  # [py>313]
 
 requirements:
   host:
